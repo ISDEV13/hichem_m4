@@ -38,6 +38,59 @@ Ce projet individuel présente un workflow de régression prédictive en IA.
 
 Ce README est un guide simple pour structurer le projet. Ajoutez les détails du dataset, les résultats et les étapes techniques dans le notebook et les fichiers annexes.
 
+---
+
+## Résumé de la pipeline
+
+### 1. Analyse exploratoire (EDA)
+
+- Aucune valeur manquante détectée
+- 13 variables numériques, 1 cible (`valeur_mediane_logements`)
+- Fortes corrélations entre variables démographiques (surface industrielle ↔ taux NOx, etc.)
+- Nombreux outliers sur le taux de criminalité et l'indice de population — conservés car ils reflètent des réalités terrain
+- Aucune donnée retirée
+
+### 2. Prétraitement
+
+- Imputation médiane sur les valeurs manquantes (pipeline générique)
+- Normalisation `MinMaxScaler` sur toutes les variables numériques
+- Pipeline `ColumnTransformer` conçu pour s'adapter automatiquement à l'arrivée de nouvelles variables catégorielles
+
+### 3. Modèles testés
+
+| Modèle | Type |
+|---|---|
+| Linear Regression | Linéaire |
+| Ridge | Linéaire régularisé |
+| Random Forest | Ensembliste |
+| Gradient Boosting | Ensembliste |
+
+### 4. Résultats — Validation simple (train/test 80/20)
+
+| Modèle | MAE | RMSE | R² |
+|---|---|---|---|
+| **Gradient Boosting** | 1.913 | 2.492 | 0.915 |
+| Random Forest | 2.041 | 2.812 | 0.892 |
+| Ridge | 3.112 | 4.859 | 0.678 |
+| Linear Regression | 3.189 | 4.929 | 0.669 |
+
+### 5. Résultats — Cross-Validation (5 folds)
+
+| Modèle | RMSE moy | RMSE ± | R² moy |
+|---|---|---|---|
+| **Gradient Boosting** | 4.176 | ±1.105 | 0.675 |
+| Random Forest | 4.418 | ±1.345 | 0.627 |
+| Ridge | 5.465 | ±1.635 | 0.459 |
+| Linear Regression | 5.829 | ±1.777 | 0.353 |
+
+### 6. Conclusions
+
+- **Gradient Boosting** est le meilleur modèle dans les deux évaluations
+- La validation simple était **trop optimiste** (RMSE 2.492 vs 4.176 en CV) — signe d'overfitting sur les modèles ensemblistes
+- Les modèles linéaires sont plus **stables** mais moins précis — ils généralisent mieux sur ce dataset
+- Le dataset est **trop petit** (506 lignes) pour obtenir des folds CV vraiment représentatifs (± élevé sur tous les modèles)
+- Erreur réelle estimée du meilleur modèle : **±4 176$** sur le prix d'un logement
+
 ## Dataset — Boston House Prices
 
 Fichier : `data_set_boston_house.csv` — 14 variables, valeurs séparées par des virgules.
