@@ -1,0 +1,8 @@
+2026-04-15T16:13:08.110893+0200 | SUCCESS | [CROSS-VALIDATION 5 FOLDS] Run du 2026-04-15_16-13-08
+2026-04-15T16:13:08.110893+0200 | SUCCESS | Modèle                      RMSE moy   RMSE ±    MAE moy   R² moy
+2026-04-15T16:13:08.110893+0200 | SUCCESS | -------------------------------------------------------------------
+2026-04-15T16:13:08.110893+0200 | SUCCESS | Gradient Boosting              4.176    1.105      2.994    0.675
+2026-04-15T16:13:08.110893+0200 | SUCCESS | Random Forest                  4.418    1.345      3.023    0.627
+2026-04-15T16:13:08.110893+0200 | SUCCESS | Ridge                          5.465    1.635      3.948    0.459
+2026-04-15T16:13:08.120024+0200 | SUCCESS | Linear Regression              5.829    1.777      4.250    0.353
+2026-04-15T16:13:08.120024+0200 | WARNING | Meilleur modèle : Gradient Boosting (RMSE moy = 4.176 ± 1.105)
